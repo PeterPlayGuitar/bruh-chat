@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+
+    
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.before-main{
+    height: 100vh;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; 
+    flex-direction: column;
+}
+
+body{
+    background:black;
+}
+
+.middle-main{
+    position: relative;
+    width: 400px;
+}
+
+.main{
+    background: rgba(0, 30, 255, 0.76);
+    color: white;
+    min-height: 500px;
+    max-height: 700px;
+    border-radius: 5px;
+    padding: 5px 0;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.message .value{
+    font-size: 12pt;
+    text-align: right;
+}
+
+.message{
+    background: #ffffff1e;
+    margin: 20px 10px;
+    padding: 10px 15px;
+    border-radius: 20px 20px 0 20px;
+}
+
+.message .sender{
+    text-align: right;
+    opacity: 0.5;
+    margin-bottom: 5px;
+}
+
+.input{
+    border-radius: 20px 20px 0 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin-top: 10px; /* This will push the last item to the bottom */
+}
+
+.input textarea{
+    box-sizing: border-box;
+    font-size: 16pt;
+    color: white;
+    border: none; /* Remove default border */
+    outline: none; /* Remove default outline */
+    background-color: transparent;
+    width: 100%;
+    min-height: 50px;
+    transition: 0.2s;
+    resize: none;
+    overflow: hidden;
+    padding: 5px 20px;
+}
+
+::-webkit-scrollbar {
+    width: 5px; /* width of the scrollbar */
+}
+::-webkit-scrollbar-thumb {
+    background: #00000025; /* color of the thumb */
+    border-radius: 5px; /* roundness of the thumb */
+}
+
+#senderInput{
+    font-size: 18pt;
+    position: absolute;
+    display: inline;
+    left: 407px;
+    bottom: 0;
+    outline: none;
+    border-radius: 40px;
+    height: 60px;
+    width: 120px;
+    box-sizing: border-box;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    border: 10px white solid;
+}
+
+.cloudDetail{
+    position: absolute;
+    border-radius: 40px;
+    width: 60px;
+    height: 60px;
+    background: white;
+    left: 437px;
+    z-index: -1;
+    box-sizing: border-box;
+
+    bottom: 20px;
+}
