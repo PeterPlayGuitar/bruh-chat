@@ -1,4 +1,4 @@
-url = "http://localhost:65000";
+url = "http://rabit1998g.fvds.ru:65000";
 
 document.addEventListener("DOMContentLoaded", () => {
   const textarea = document.getElementById("input");

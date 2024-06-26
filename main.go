@@ -12,6 +12,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Message struct {
@@ -23,29 +25,24 @@ type Message struct {
 var mongoClient *mongo.Client
 
 type Env struct {
-	mongodbPort string
+	MongodbPort string `yaml:"mongodbPort"`
+	Port        string `yaml:"port"`
+	BackendUrl  string `yaml:"backendUrl"`
 }
-
-var envDev = Env{
-	mongodbPort: "27010",
-}
-
-var envProd = Env{
-	mongodbPort: "27017",
-}
-
-var profile = os.Args[1]
 
 func main() {
+	yamlFile, err := os.ReadFile("profile.yml")
+	if err != nil {
+		log.Fatalf("failed to read YAML file: %v", err)
+	}
 	var env Env
-	if profile == "local" {
-		env = envDev
-	} else {
-		env = envProd
+	err = yaml.UnmarshalStrict(yamlFile, &env)
+	if err != nil {
+		log.Fatalf("failed to unmarshal YAML: %v", err)
 	}
 
 	// Set MongoDB client options
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:" + env.mongodbPort)
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:" + env.MongodbPort)
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
@@ -62,17 +59,13 @@ func main() {
 
 	fmt.Println("Connected to MongoDB!")
 
-	port := "65000"
-	if len(os.Args) >= 3 {
-		port = os.Args[2]
-	}
 	http.Handle("/chat/", http.StripPrefix("/chat/", http.FileServer(http.Dir("./public"))))
 	http.HandleFunc("/api/messages", messagesHandler)
 	//certFile := "cert.pem"
 	//keyFile := "key.pem"
-	log.Println("Starting server on https://localhost:" + port)
 	//err = http.ListenAndServeTLS(":"+port, certFile, keyFile, nil)
-	err = http.ListenAndServe(":"+port, nil)
+	log.Println("Starting server on https://localhost:" + env.Port)
+	err = http.ListenAndServe(":"+env.Port, nil)
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
