@@ -68,11 +68,10 @@ func main() {
 	}
 	http.Handle("/chat/", http.StripPrefix("/chat/", http.FileServer(http.Dir("./public"))))
 	http.HandleFunc("/api/messages", messagesHandler)
-	//certFile := "cert.pem"
-	//keyFile := "key.pem"
+	certFile := "cert.pem"
+	keyFile := "key.pem"
 	log.Println("Starting server on https://localhost:" + port)
-	//err = http.ListenAndServeTLS(":"+port, certFile, keyFile, nil)
-	err = http.ListenAndServe(":"+port, nil)
+	err = http.ListenAndServeTLS(":"+port, certFile, keyFile, nil)
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
