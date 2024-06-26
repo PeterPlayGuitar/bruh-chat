@@ -126,7 +126,7 @@ func findAll() []Message {
 	collection := mongoClient.Database("bruhChat").Collection("messages")
 
 	findOptions := options.Find()
-	findOptions.SetLimit(3)
+	findOptions.SetLimit(25)
 	findOptions.SetSort(bson.D{{"_id", -1}}) // Sort by _id in descending order
 
 	cursor, err := collection.Find(context.TODO(), bson.D{}, findOptions)
