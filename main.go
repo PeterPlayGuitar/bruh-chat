@@ -63,6 +63,9 @@ func main() {
 	fmt.Println("Connected to MongoDB!")
 
 	port := "65000"
+	if len(os.Args) >= 3 {
+		port = os.Args[2]
+	}
 	http.Handle("/chat/", http.StripPrefix("/chat/", http.FileServer(http.Dir("./public"))))
 	http.HandleFunc("/api/messages", messagesHandler)
 	//certFile := "cert.pem"
