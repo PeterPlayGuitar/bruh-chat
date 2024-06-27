@@ -59,7 +59,7 @@ func main() {
 
 	fmt.Println("Connected to MongoDB!")
 
-	http.Handle("/chat/", http.StripPrefix("/chat/", http.FileServer(http.Dir("./public"))))
+	http.Handle("/chat/", http.StripPrefix("/", http.FileServer(http.Dir("./public"))))
 	http.HandleFunc("/api/messages", messagesHandler)
 	//certFile := "cert.pem"
 	//keyFile := "key.pem"
