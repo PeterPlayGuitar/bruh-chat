@@ -59,12 +59,12 @@ func main() {
 
 	fmt.Println("Connected to MongoDB!")
 
-	http.Handle("/bruh-chat/", http.StripPrefix("/bruh-chat/", http.FileServer(http.Dir("./public"))))
+	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./public"))))
 	http.HandleFunc("/api/messages", messagesHandler)
 	//certFile := "cert.pem"
 	//keyFile := "key.pem"
 	//err = http.ListenAndServeTLS(":"+port, certFile, keyFile, nil)
-	log.Println("Starting server on https://localhost:" + env.Port)
+	log.Println("Starting server on http://localhost:" + env.Port)
 	err = http.ListenAndServe(":"+env.Port, nil)
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
